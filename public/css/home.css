@@ -1,0 +1,79 @@
+.warna1 {
+    background-color: #633971;
+}
+
+.warna2 {
+    background-color: #8F38A4;
+}
+
+.warna3 {
+    background-color: #C39BD3;
+}
+
+.warna4 {
+    background-color: #D7BDE2;
+}
+
+.warna5 {
+    background-color: #633971;
+}
+
+.banner {
+    height: 60vh;
+    background: url('../image/herobg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 10% 60%;
+}
+
+
+/* .no-decoration{
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.no-decoration:hover {
+    color: #C39BD3;
+} */
+
+.paragraf {
+    font-size: 16px;
+}
+
+.h3 {
+    color: #633971;
+}
+
+.image-box {
+    height: 240px;
+}
+
+.image-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.link {
+    color: white;
+}
+
+.card-body2 {
+    background-color: #633971;
+    color: white;
+    border-radius: 4px;
+}
+
+.banner-produk {
+    height: 50vh;
+    background: url('../image/mikurage.jfif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+section {
+    padding: 2rem 25%;
+}

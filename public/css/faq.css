@@ -1,0 +1,109 @@
+.warna1 {
+    background-color: #633971;
+}
+
+.warna2 {
+    background-color: #8F38A4;
+}
+
+.warna3 {
+    background-color: #C39BD3;
+}
+
+.warna4 {
+    background-color: #D7BDE2;
+}
+
+.warna5 {
+    background-color: #633971;
+}
+
+.banner {
+    height: 60vh;
+    background: url('../image/herobg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 10% 60%;
+}
+
+section {
+    padding: 2rem 25%;
+}
+
+.faq-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.hr-line {
+    width: 60%;
+    margin: auto;
+}
+
+.faq-page {
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    cursor: pointer;
+    padding: 50px;
+    width: 100%;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin: auto;
+    background-color: #633971;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.faq-body {
+    margin: auto;
+    width: 50%;
+    padding: auto;
+}
+
+.active,
+.faq-page:hover {
+    background-color: #8F38A4;
+}
+
+.faq-body {
+    background-color: #C39BD3;
+    color: white;
+    padding: 10px;
+    display: none;
+    overflow: hidden;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.faq-page:after {
+    content: '\02795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796";
+}
+
+.container2 {
+    max-width: 1170px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul {
+    list-style: none;
+}
+
+.link {
+    color: white;
+}
