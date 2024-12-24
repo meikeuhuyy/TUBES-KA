@@ -1,57 +1,84 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Git checkout') {
-            steps {
-                echo "Checking out the code from SCM"
-                checkout scm
-                sleep 1
-            }
-        }
-
-        stage('Sending Dockerfile to Ansible server') {
-            steps {
-                echo "Sending Dockerfile to the Ansible server"
-                sleep 1
-            }
-        }
-
-        stage('Docker build image') {
-            steps {
-                echo "Building Docker image"
-                sleep 2
-            }
-        }
-
-        stage('Push docker images to DockerHub') {
-            steps {
-                echo "Pushing Docker image to DockerHub"
-                sleep 2
-            }
-        }
-
-        stage('Copy files from Jenkins to Kubernetes server') {
-            steps {
-                echo "Copying files from Jenkins to the Kubernetes server"
-                sleep 1
-            }
-        }
-
-        stage('Kubernetes deployment using Ansible') {
-            steps {
-                echo "Deploying application to Kubernetes using Ansible"
-                sleep 20
-            }
-        }
+    agent any  // Menentukan agen untuk menjalankan pipeline
+    environment {
+        DOCKER_IMAGE = "minfulmedia"  // Nama image Docker yang akan dibangun
+        DOCKER_REGISTRY = 'docker.io' // Registry Docker
+        DOCKER_REPO = 'azzahra177/minfulmedia' // Nama repository Docker
+        DOCKER_CREDENTIALS = 'azzahra177' // ID kredensial di Jenkins untuk login ke Docker registry
     }
 
-    post {
-        success {
-            echo "Pipeline executed successfully!"
+    stages {
+        stage('Git Checkout') {
+            steps {
+                // Melakukan checkout dari repository Git
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/AzzahraRST/TubesKA'
+            }
         }
-        failure {
-            echo "Pipeline failed!"
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Membuat Docker image dengan nama yang didefinisikan di variabel DOCKER_IMAGE
+                    docker.build("${DOCKER_IMAGE}", ".")
+                }
+            }
         }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Login ke Docker registry dan push image ke repository
+                   docker.withRegistry('', 'azzahra177') {
+                        docker.image("${DOCKER_REPO}:latest").push()
+                    }
+
+                }
+            }
+        }
+
+        // stage('Deploy to Ansible Server') {
+        //     steps {
+        //         script {
+        //             sshPublisher(
+        //                 publishers: [
+        //                     sshPublisherDesc(
+        //                         configName: 'Ansible-Server', // Ganti dengan nama konfigurasi server SSH Anda di Jenkins
+        //                         transfers: [
+        //                             sshTransfer(
+        //                                 sourceFiles: '/*', // Semua file di workspace akan dikirim
+        //                                 remoteDirectory: '/var/www/atoz_app/' // Folder tujuan di server
+        //                             )
+        //                         ],
+        //                         usePromotionTimestamp: false,
+        //                         verbose: true
+        //                     )
+        //                 ]
+        //             )
+        //         }
+        //     }
+        // }
+        
+        // stage('Deploy to Kubernetes Server') {
+        //     steps {
+        //         script {
+        //             sshPublisher(
+        //                 publishers: [
+        //                     sshPublisherDesc(
+        //                         configName: 'Kubernetes-Server', // Ganti dengan nama konfigurasi server SSH Anda di Jenkins
+        //                         transfers: [
+        //                             sshTransfer(
+        //                                 sourceFiles: '/*', // Semua file di workspace akan dikirim
+        //                                 remoteDirectory: '/var/www/atoz_app/' // Folder tujuan di server
+        //                             )
+        //                         ],
+        //                         usePromotionTimestamp: false,
+        //                         verbose: true
+        //                     )
+        //                 ]
+        //             )
+        //         }
+        //     }
+        // }
+        
     }
 }
